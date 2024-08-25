@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style/influ-finder.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      />
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  
+      <script>
+        $(document).ready(function(){
+    let active=localStorage.getItem("activeuser");
+    alert(active);
+    $("#dashwlcm").html("&#x1F389; welcome:"+active);
+        });
+      </script>
+
+      <style>
+        .fa-instagram {
+color: transparent;
+background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+background-clip: text;
+-webkit-background-clip: text;
+}
+/* 
+h5,li{
+font-weight: bold;
+}
+ 
+.icn {
+    align-items:center;
+}
+ .icn::after {
+            content: '  ';
+            margin-left: 5px;
+ }
+ .txt {
+  align-items: start;
+  font-weight: bold;
+  padding: 10px;
+ }
+
+ .h {
+  font-weight: bold;
+  margin-left: 25px;
+ }
+  
+  .mli {
+  font-weight: normal;
+  padding: 5px;
+  align-items: center;
+ }
+ .image-container {
+ 
+           
+            
+            width: 100%; /* Adjust this to your desired container width */
+             /* max-width: 300px; /* Adjust this to your desired container width */
+             /* height: 200px; /* Adjust this to your desired container height */
+        /* }
+*/
+        /* .image-container img {
+            width: 100%;
+            height: 100%;
+             /* */
+   /*    }   */ 
+        #dashwlcm {
+          color: #343a40;
+      background-color: white;
+      display: inline-block;
+      width:100%;
+      font-size: 20px;
+        }
+
+        .ftr {
+          margin: 0px;
+    color: white;
+    padding: 0px 0;
+}
+  
+ 
+ 
+ 
+
+
+
+
+
+      </style>
+
+
+    <script>
+        var module=angular.module("myModule",[]);
+        var controller=module.controller("myController",function($scope,$http){
+
+            $scope.findInflu=function(fields)
+            {
+                let url="/find-influe?fields="+fields;
+                $http.get(url).then(allIsWell,notWell);
+                function allIsWell(response){
+                    alert(response.data);
+                    alert(JSON.stringify(response.data));
+                    $scope.jsonArrayInflu=response.data;
+                }
+                function notWell(err){
+                    alert(err)
+                }
+            }
+            //======================
+            $scope.dofind=function(fields,city){
+                let url="/do-find?fields="+fields+"&city="+city;
+                $http.get(url).then(allIsWell,notWell);
+                function allIsWell(response){
+                    alert(response.data)
+                    $scope.jarraybyfnc=response.data;
+                }
+                function notWell(err){
+                    alert(err)
+                }
+            }
+
+            //======================
+            $scope.dofindbyname=function(iname)
+            {
+                let url="/do-findbyname?iname="+iname;
+                $http.get(url).then(allIsWell,notWell);
+                function allIsWell(response){
+                    alert(response.data);
+                    $scope.jarraybyfnc=response.data;
+                }
+                function notWell(err)
+                {
+                    alert(err)
+                }
+            }
+
+            //=====================
+            $scope.showinfo=function(index){
+                $scope.fullDetailObj=$scope.jarraybyfnc[index];
+            }
+
+
+        })
+    </script>
+
+<script>
+  function dologout(){
+    localStorage.removeItem("activeuser");
+    location.href="index.html";
+  }
+</script>
+</head>
+
+
+
+
+<body ng-app="myModule" ng-controller="myController" ng-init="" >
+    <div class="container-md bg-dark">
+      <nav class="navbar navbar-expand-lg mynav bg-dark border-bottom border-body sticky-top " data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="./pics/chart_3166485.png" alt="Bootstrap" width="30" height="24">
+          </a>
+          <a class="navbar-brand" href="#syncsphere"><h2>SyncSphere.com</h2></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            <form class="d-flex" role="search">
+             
+          <button class="btn btn-light " value="logout"onclick="dologout();" type="button" style="margin-left:10px" 
+             >LogOut</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    
+        <h2 class="my-h2 text-center">Find Influencer</h2>
+       <center> <span id="dashwlcm" class=" text-center">* </span></center>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-1">
+        <label for="validationCustom04" class="form-label">Fields:</label>
+        </div>
+        <div class="col-md-3">
+ 
+            <select class="form-select" ng-model="fields"  required  ng-change="findInflu(fields);">
+                <option selected disabled value="">Choose...</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Sports">Sports</option>
+                <option value="Coding">Coding</option>
+                <option value="Education">Education</option>
+                <option value="Singing">Singing</option>
+                <option value="Meditation">Meditation</option>  
+                <option value="rapper">rapper</option>
+                <option value="dancer">dancer</option>   
+             <option value="Shooter">Shooter</option>
+             <option value="Actor">Actor</option>
+             <option value="Blogger">Blogger</option>      
+            </select>
+        
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <label for="validationCustom04" class="form-label">City:</label>
+            </div>
+            <div class="col-md-3">
+            <select class="form-select" ng-model="city" required>
+                    <option selected disabled value="">Choose...</option>
+                    <option ng-repeat="obj in jsonArrayInflu" value="{{obj.city}}">{{obj.city}}</option>
+            </select>
+
+            </div>
+
+            <div class="col-md-2">
+                <p>
+                    <input type="button" class="btn btn-outline-light" ng-click="dofind(fields,city);" value="Find Now">
+                    
+                </p>
+            </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-1">
+            <label for="validationCustom04" class="form-label">Name:</label>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="iname">
+        </div>
+        <div class="col-md-2">
+            <p>
+                <input type="button" class="btn btn-outline-light" ng-click="dofindbyname(iname);" value="Find By Name">
+                
+            </p>
+        </div>
+        <div class="col-md-4 ">
+            <details >
+                <summary class="instructions  smry">How To Use</summary>
+                <p class="instructions">Select the field and city, or enter the influencer's name to find them.</p>
+              </details>
+                   </div>
+                   
+
+    </div>
+
+
+    <div class="container-md-4">
+       
+        <div class="card-group" width="400" height="400">
+          
+                <div class="md card text-center" ng-repeat="obj in jarraybyfnc">
+                  <h5 class="text-center ">PROFILE</h2>
+                  <center>  <img src="uploads/{{obj.picpath}}"  alt="..." height="100" width="100" style="border-radius: 50%;"></center>
+                    <div class="card-body">
+                      <h5 class="card-title"><b>Name:</b> {{obj.iname}}</h5>
+                      <h5 class="card-title"><i class="fa-solid fa-user-tie icn"></i><i> {{obj.fields}} </i></h5>
+                      
+                    </div>
+                    <ul class="list-group list-group-flush">
+
+                     
+                      <li class="list-group-item"><i class="fa-regular fa-calendar-days icn"></i>{{obj.dob}}</li>
+                      <li class="list-group-item"><i class="fa-solid fa-city icn"></i>{{obj.city}}</li>
+                      <li class="list-group-item"><i class="fa-solid fa-person-half-dress icn"></i>{{obj.gender}}</li>
+                      <!-- <li><p class="card-text">{{obj.others}}</p></li>
+                        <li><a href="" class="card-link">  <i
+                            class="fa-brands fa-square-facebook fa-beat-fade"
+                            style="color: #0593ff"
+                          ></i>{{obj.fb}}</a>
+                          <a href="#" class="card-link">
+                  <i class="fa-brands fa-instagram fa-beat-fade" ></i>{{obj.insta}}</a>
+     </li> -->
+                    </ul>
+                    <div class="card-footer">
+                                   <input type="button" data-bs-toggle="modal" data-bs-target="#modalDetails"
+              class="btn btn-dark text-center" ng-click="showinfo($index);" value="More Info"></center>
+       
+                    </div>
+                  </div>
+                </div>
+               
+<div class="container-md  text-center">
+  <div class="row bg-dark ftr">
+    <div class="col-md-6 bg-dark">
+      <br>
+      <div class="row">
+      <div class="col-md-2">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </div>
+      <div class="col-md-4">
+      <p> BCE Bathinda</p></div></div>
+      <div class="row">
+        <div class="col-md-2">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="col-md-4">
+        <p>+915678898765</p></div></div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="col-md-4">
+          <p> <a href="#synsphere">syncsphere@mail.com</a></p></div></div>
+    </div>
+    <div class="col-md-6">
+      <br>
+      <h4>About The Company</h4> 
+      <p class="text-center">Our project facilitates the right connections, ensuring that each event reaches its full potential by bringing together the necessary elements seamlessly.</p>
+    </div>
+  </div>
+  <div class="row bg-dark ftr">
+    <div class="col-md-12">
+      <p>&copy; www.SyncSphere.com All rights reserved.</p>
+    </div>
+  </div>
+</div>
+                </div>
+                
+</div>
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">User Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--          
+         <div class="modal-body">
+          <div class="container-md moreinfo text-center">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-6" style="border: 1px black solid;">
+                    <div class="row">
+                      <div class="image-container mx-auto" >
+                        <img src="uploads/{{fullDetailObj.picpath}}" class="img-fluid" alt="Your Image" width="150" height="150" style="border-radius: 50%;  margin: auto;">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <h5 class="card-title">{{fullDetailObj.iname}}</h5>
+                    </div>
+                    <div class="row">
+                      <h6 class="card-title">( {{fullDetailObj.fields}} )</h6>
+                    </div>
+                    <div class="row">
+                      <p class="card-text">{{fullDetailObj.others}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 text-center" style="border: 1px black solid;">
+                <div class="row">
+                  <a href="{{fullDetailObj.insta}}" class="card-link"><i class="fa-brands fa-instagram fa-beat-fade mli fa-2x"></i></a>
+                </div>
+                <div class="row">
+                  <h4>Instagram</h4>
+                </div>
+                <div class="row">
+                  <a href="{{fullDetailObj.fb}}" class="card-link"><i class="fa-brands fa-square-facebook fa-beat-fade mli fa-2x" style="color: #0593ff"></i></a>
+                </div>
+                <div class="row">
+                  <h4>Facebook</h4>
+                </div>
+                <div class="row">
+                  <a href="{{fullDetailObj.youtube}}" class="card-link text-center"><i class="fa-brands fa-square-youtube fa-beat-fade mli fa-2x" style="color: red"></i></a>
+                </div>
+                <div class="row">
+                  <h4>Youtube</h4>
+                </div>
+              </div>
+            </div>
+        
+            <div class="row mt-1">
+              <div class="col-md-4">
+                <h6 class="h">Full Name:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.iname}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="h">Email Id:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.emailid}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="h">Date Of Birth:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.dob}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="h">Contact:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.contact}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="h">City:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.city}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <h6 class="h">Address:</h6>
+              </div>
+              <div class="col-md-8">{{fullDetailObj.address}}</div>
+            </div>
+          </div>
+        </div>
+        
+ -->
+
+
+
+
+
+
+
+
+ <div class="modal-body">
+  <div class="container-md moreinfo text-center ">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+              <div class="image-container mb-2">
+                <img src="uploads/{{fullDetailObj.picpath}}" class="img-fluid rounded-circle" alt="Your Image" width="100" height="100">
+              </div>
+              <h5 class="card-title mb-1">{{fullDetailObj.iname}}</h5>
+              <h6 class="card-subtitle text-muted mb-2">({{fullDetailObj.fields}})</h6>
+              <p class="card-text">{{fullDetailObj.others}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="card border-0">
+          <div class="card-body">
+            
+            <div class="mb-3">
+              <h4 class="mt-1">SOCIAL MEDIA ACCOUNTS</h4></div>
+            <div class="mb-3">
+              <a href="{{fullDetailObj.insta}}" class="card-link"><i class="fa-brands fa-instagram fa-2x"></i></a>
+              <h4 class="mt-1">Instagram</h4>
+            </div>
+            <div class="mb-3">
+              <a href="{{fullDetailObj.fb}}" class="card-link"><i class="fa-brands fa-square-facebook fa-2x" style="color: #0593ff"></i></a>
+              <h4 class="mt-1">Facebook</h4>
+            </div>
+            <div class="mb-3">
+              <a href="{{fullDetailObj.youtube}}" class="card-link"><i class="fa-brands fa-square-youtube fa-2x" style="color: red"></i></a>
+              <h4 class="mt-1">YouTube</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <h6>Full Name:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.iname}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>Email Id:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.emailid}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>Date Of Birth:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.dob}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>Contact:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.contact}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>City:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.city}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h6>Address:</h6>
+      </div>
+      <div class="col-md-8">
+        <p>{{fullDetailObj.address}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark " data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+  <!-- <ul class="list-group list-group-flush">
+                  <li class="list-group-item mli"><font class="txt">Full Name:</font>{{fullDetailObj.iname}}</li>
+                  <li class="list-group-item mli"><font class="txt">Email:</font> </li>
+                  <li class="list-group-item mli"><font class="txt">Dob:</font></li>
+                  
+                  <li class="list-group-item mli"><font class="txt">Mobile:</font> </li>
+                  <li class="list-group-item mli"><font class="txt">City:</font></li>
+                  <li class="list-group-item mli"><font class="txt">Address:</font> </li>
+                </ul> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+     <!----- <div class="modal-body ">
+
+
+
+
+
+
+          <div class="container-md moreinfo text-center">
+            
+            <div class="row">
+            <div class="col-md-8 ">
+              <div class="row">
+                <div class="col-md-8 ">
+              <div class="row"><div class="image-container mx-auto">
+                <img src="uploads/{{fullDetailObj.picpath}}" class="img-fluid" alt="Your Image"width="150" height="150" style="border-radius: 50%; margin: auto;">
+            </div></div>
+               <img src="uploads/{{fullDetailObj.picpath}}" id="mimg" class="card-img-top" alt="..."   ></div>
+                
+                <div class="row">
+                  <h5 class="card-title">{{fullDetailObj.iname}}</h5>
+                </div>
+                <div class="row">
+                  <h6 class="card-title"> ( {{fullDetailObj.fields}} )</h6>
+                </div>
+                <div class="row">
+                  <p class="card-text">{{fullDetailObj.others}}</p>
+                </div></div>
+              </div>
+              </div>
+              <div class="col-md-4 text-center">
+
+                  <div class="col-md-4">
+                  <div class="row">
+                    <a href="{{fullDetailObj.insta}}" class="card-link"><i class="fa-brands fa-instagram fa-beat-fade mli fa-2x" > </i></a></div>
+                    <div class="row">
+                    <h4>Instagram</h4>
+                  </div>
+                  <div class="row">
+                    <a href="{{fullDetailObj.fb}}" class="card-link"> <i
+                      class="fa-brands fa-square-facebook fa-beat-fade mli fa-2x"
+                      style="color: #0593ff"
+                    ></i></a></div>
+                    <div class="row">
+                   <h4>Facebook</h4></div>
+                  
+                  <div class="row">
+
+                    <a href="{{fullDetailObj.youtube}}" class="card-link text-center"><i
+                      class="fa-brands fa-square-youtube fa-beat-fade mli fa-2x"
+                      style="color: red"
+                    ></i></a></div>
+                    <div class="row">
+                    <h4>Youtube</h4></div>
+                  </div>
+                    </div>
+
+                  
+                  </div>
+
+  
+                    <div class="row mt-1">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h6 class="h">Full Name:</h6>
+                        </div>
+                        <div class="col-md-8">{{fullDetailObj.iname}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4"><h6 class="h">Email Id: </h6></div>
+                        <div class="col-md-8">{{fullDetailObj.emailid}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4"><h6 class="h">Date Of Birth:</h6></div>
+                        <div class="col-md-8"> {{fullDetailObj.dob}}</div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4"><h6 class="h">Contact</h6></div>
+                        <div class="col-md-8">{{fullDetailObj.contact}}</div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-md-4"><h6 class="h">City: </h6></div>
+                        <div class="col-md-8"> {{fullDetailObj.city}}</div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-md-4"><h6 class="h">Address</h6></div>
+                        <div class="col-md-8">{{fullDetailObj.address}}</div>
+                      </div>
+                      
+                    </div>
+
+              
+              
+            </div></div> -->

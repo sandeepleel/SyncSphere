@@ -1,0 +1,84 @@
+body{
+    background-color: black;
+    
+}
+.mynav {
+    background-color: black;
+    color: #ffffff;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+}
+ .nav-item:hover{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.btn{
+    font-weight: bold;
+    /* text-transform: uppercase; */
+}
+.h2-my{
+    color:white;
+    text-transform: uppercase;
+    line-height: 52px;
+    margin-bottom: 0px;
+}
+.card-body-custom {
+    background-color: #f8f9fa; /* Light grey background */
+    color: #343a40; /* Dark grey text */
+}
+
+.h2-my {
+    margin-bottom: 0px; /* Adjust this value to change space */
+}
+
+.card-body-custom .card-title {
+    color: #007bff; /* Blue text for card titles */
+}
+.title-crd {
+    font-weight: bold;
+}
+#services img{
+    margin:3px;
+    padding: 13px;
+}
+#services img:hover {
+    transition: ease all;
+}
+#services .card{
+    
+    color: white;
+    /* background-color: #5a6168;
+*/}
+#services h5{
+    text-transform: uppercase;
+}
+
+#reach .h2-my{
+    color:white;
+    text-transform: uppercase;
+    line-height: 52px;
+    margin-bottom: 0px;
+        margin: 0; /* Remove margin */
+        padding: 5px 0; /* Add padding for spacing */
+    
+}
+
+/* .ftr {
+   
+    color: #fff;
+    
+     overflow: hidden;
+     box-sizing: border-box;
+} */
+
+  
+  .ftr {
+    margin: 0px;
+    color: white;
+    padding: 0px 0;
+  }
+  .lbl {
+    font-weight: bold;
+    color: #343a40;
+  }
+  

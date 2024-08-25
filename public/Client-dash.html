@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style/client-dash.css">
+    <script src="./script/client-dash.js"></script>
+    <script>
+      $(document).ready(function()
+    {
+          if(localStorage.getItem("activeuser")==null)
+          {
+            location.href="index.html";
+            return;
+          }
+                let active=localStorage.getItem("activeuser");
+                $("#clemail").val(active).prop("readonly",true);
+    
+    })
+</script>       
+
+
+
+    <script>
+      function dologout(){
+        localStorage.removeItem("activeuser");
+        location.href="index.html";
+      }
+    </script>
+     <script>
+    
+      $(document).ready(function(){
+  let active=localStorage.getItem("activeuser");
+  alert(active);
+  $("#dashwlcm").html("&#x1F389; welcome:"+active);
+      });
+    </script>
+
+</head>
+<style>
+
+.lbl {
+    font-weight: bold;
+    color: #343a40;
+  }
+  
+.ftr {
+  margin: 0px;
+    color: white;
+    padding: 0px 0;
+}
+
+#wait{
+  position: absolute;
+  width:100px;
+  height: 100px;
+  background-image: url(pics/loading.gif);
+  background-size: contain;
+  top:30%;
+  left:40%;
+  border: 1px black solid;
+  display: none;
+}
+#bg{
+  width: 100%;
+  height: 100%;
+  background-color: gainsboro;
+  display: none;
+  position: absolute;
+  opacity: .5;
+}
+#dashwlcm {
+  color: #343a40;
+      background-color: white;
+      display: inline-block;
+      width:100%;
+      font-size: 20px;
+}
+
+</style>
+
+
+</head>
+<body>
+      
+<div id="bg"></div>
+<div id="wait "></div>
+  <center>
+    <div class="container bg-dark">
+      <nav class="navbar navbar-expand-lg mynav bg-dark border-bottom border-body sticky-top " data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="./pics/chart_3166485.png" alt="Bootstrap" width="30" height="24">
+          </a>
+          <a class="navbar-brand" href="#syncsphere"><h2>SyncSphere.com</h2></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            <form class="d-flex" role="search">
+          <button class="btn btn-light " type="button" style="margin-left:10px" 
+          value="logout" onclick="dologout();" >LogOut</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      
+        <div class="card">
+            <h2 class="h2-my bg-dark">CLIENT DASHBOARD</h1>
+          <span id="dashwlcm lbl" class="text-center">* </span>
+        <div class="card-body">
+          <div class="card-group">
+    <div class="card">
+        <img src="pics/Profile.avif" class="card-img" alt="..." style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin: auto; padding-top: 20px;">
+        <div class="card-body">
+          <h5 class="card-title "><center>PROFILE</center></h5>
+          <p>Welcome to our project! This card is designed to gather essential information about our clients to ensure we can provide personalized and efficient service. Please fill in the details accurately so we can better assist you.
+          </p>
+         <center><a href="/client-profile" class="btn btn-dark">PROFILE</a></center>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="pics/booking.avif" class="card-img" alt="..." style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin: auto; padding-top: 20px;">
+        <div class="card-body">
+          <h5 class="card-title"><center>INFLUENCER FINDER</center></h5>
+          <p>Discover top influencers effortlessly! Enter the city, field, and name to find the perfect match for your campaign. Let's connect you with the best! Simply fill in the details to discover the perfect influencer for your needs.
+        </p>
+        <center><a href="/influ-finder" class="btn btn-dark">PROFILE</a></center>
+        </div>
+    </div>
+    <div class="card">
+        <img src="pics/settings.avif" class="card-img" alt="..." style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin: auto; padding-top: 20px;">
+        <div class="card-body">
+          <h5 class="card-title"><center>SETTINGS</center></h5>
+          <p>
+            Easily update your email password settings here. Ensure your account stays secure by regularly changing your password. Protect your personal information and keep your communications private. Your security is our priority!
+        </p>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#settingModal"  >
+          SETTINGS
+          </button> 
+        </div>
+    </div>
+    
+    <!-- card  -->
+    
+    <!-- <div class="card" style="width: 18rem; float: left;">
+        <img src="pics/login.avif" class="card-img" alt="..." style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover; margin: auto; padding-top: 20px;">
+        <div class="card-body">
+          <h5 class="card-title"><center>LOGOUT</center></h5>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga, cum.
+        </p>
+          <input type="button" class="btn btn-dark" value="Logout" id="btnLogout" onclick="dologout();">
+        </div>
+    </div> -->
+    
+  </div>
+  </div>
+  
+    </div>
+    
+<div class="container-md  text-center">
+  <div class="row bg-dark ftr">
+    <div class="col-md-6 bg-dark">
+      <br>
+      <div class="row">
+      <div class="col-md-2">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </div>
+      <div class="col-md-4">
+      <p> BCE Bathinda</p></div></div>
+      <div class="row">
+        <div class="col-md-2">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="col-md-4">
+        <p>+915678898765</p></div></div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="col-md-4">
+          <p> <a href="#synsphere">syncsphere@mail.com</a></p></div></div>
+    </div>
+    <div class="col-md-6">
+      <br>
+      <h4>About The Company</h4> 
+      <p class="text-center">Our project facilitates the right connections, ensuring that each event reaches its full potential by bringing together the necessary elements seamlessly.</p>
+    </div>
+  </div>
+  <div class="row bg-dark ftr">
+    <div class="col-md-12">
+      <p>&copy; www.SyncSphere.com All rights reserved.</p>
+    </div>
+  </div>
+</div>
+  
+  </div></center>
+
+
+    <!-- //setting model  -->
+    
+<div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 lbl" id="exampleModalLabel">SETTINGS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <form class="row g-3" >
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label lbl">Email</label>
+              <input type="email" class="form-control" id="clemail" name="clemail" required>
+              <span id="cerrEmails" class="lbl">*</span>
+            </div>
+            <div class="col-12">
+              <label for="inputPassword" class="form-label lbl">OLD Password</label>
+              <input type="text" class="form-control" id="copwd" name="copwd" placeholder="">
+            </div>
+            <div class="col-12">
+              <label for="inputPassword" class="form-label lbl">New Password</label>
+              <input type="text" class="form-control" id="cnpwd" name="cnpwd" placeholder="">
+            </div>
+            <div class="col-12">
+              <label for="inputPassword" class="form-label lbl">Repeat Password</label>
+              <input type="text" class="form-control" id="ctxtnPwd" name="ctxtnPwd" placeholder="">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="cbtnUpdate">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

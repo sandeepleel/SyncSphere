@@ -1,0 +1,26 @@
+body {
+    background-color: black;
+}
+.my-h2 {
+    color: white;
+    text-transform: uppercase;
+    line-height: 52px;
+    margin-bottom: 0px;
+}
+label {
+    color:white;
+    font-weight: bold;
+}
+.instructions {
+    color: #343a40;
+    font-size: 16px;
+    background-color: #fff;
+}
+.smry {
+    font-weight: bold;
+    font-size: 25px;
+    text-transform: uppercase;
+    background-color: white;
+} 
+
+  

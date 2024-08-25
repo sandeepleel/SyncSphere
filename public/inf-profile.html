@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="./script/inf-profile.js"></script>
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      />
+    
+    <script>
+      function doPrev(fileCtrl,imgPrev){
+          let [file] = fileCtrl.files
+          if (file) {
+              imgPrev.src= URL.createObjectURL(file)
+          }
+      }
+  </script>
+  
+   <script>
+        
+    $(document).ready(function(){
+let active=localStorage.getItem("activeuser");
+$("#txtEmail").val(active).prop("readonly",true);
+alert(active);
+$("#dashwlcm").html("&#x1F389; welcome:"+active);
+    });
+  </script>
+  <script>
+    function dologout(){
+      localStorage.removeItem("activeuser");
+      location.href="index.html";
+    }
+  </script>
+  <!-- <script>
+  $("#nav").load("_nav.html");
+</script> -->
+  
+
+<style>
+  body {
+    background-color: black;
+   
+    color: white;
+    font-family: serif;
+  }
+  .h2-my {
+    text-transform: uppercase;
+    padding: 05px;
+    margin: 0px;
+  }
+
+  #wait{
+      position: absolute;
+      width:100px;
+      height: 100px;
+      background-image: url(pics/loading.gif);
+      background-size: contain;
+      top:30%;
+      left:40%;
+      border: 1px black solid;
+      display: none;
+  }
+  #bg{
+      width: 100%;
+      height: 100%;
+      background-color: gainsboro;
+      display: none;
+      position: absolute;
+      opacity: .5;
+  }
+  #dashwlcm {
+    color: #343a40;
+      background-color: white;
+      display: inline-block;
+      width:100%;
+      font-size: 20px;
+      
+        }
+        .ftr {
+          margin: 0px;
+    color: white;
+    padding: 0px 0;
+}
+
+</style>
+
+</head>
+<body>
+  <div id="bg"></div>
+    <div id="wait"></div>
+    
+  <center>
+  
+  </center>
+  <div class="container-md">
+    <nav class="navbar navbar-expand-lg mynav bg-dark border-bottom border-body sticky-top " data-bs-theme="dark">
+      <div class="container-fluid ">
+        <a class="navbar-brand" href="#">
+          <img src="./pics/chart_3166485.png" alt="Bootstrap" width="30" height="24">
+        </a>
+        <a class="navbar-brand" href="#syncsphere"><h2>SyncSphere.com</h2></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            
+          <form class="d-flex" role="search">
+        <button class="btn btn-light " type="button" style="margin-left:10px" 
+      value="logout" onclick="dologout();" >LogOut</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <h2 class="h2-my bg-dark text-center">Influencer Profile</h2>
+    <span id="dashwlcm" class=" text-center">*</span>
+    <form class="row g-3" method="post" enctype="multipart/form-data">
+    
+      <input type="hidden" id="hdn" name="hdn" class="bg-dark">
+        <div class="col-md-4">
+          <label for="inputEmail4" class="form-label">Email ID</label>
+          <input type="text" class="form-control" name="txtEmail" id="txtEmail" required>
+          <br>
+          <span id="errEmail">*</span>
+        </div>
+        <div class="col-md-4 ">
+          <br>
+            <button class="btn btn-dark " type="button" id="btnSearch">Search</button>
+            
+          </div>
+          <div class="col-md-4 text-center">
+          <label for="inputEmail4" class="form-label">Profile Pic</label>
+          <input type="file" name="ppic"  class="form-control" onchange="doPrev(this,imgPrev);">
+          <br>
+          <img src="./pics/my.jpg" id="imgPrev" alt="pic" width="100" height="100">
+          </div>
+          <div class="col-md-4">
+            <label for="inputEmail4" class="form-label">NAME</label>
+            <input type="text"  required class="form-control" id="iname" name="iname"
+             required>
+          </div>
+          <div class="col-md-4">
+            <label for="inputGender" class="form-label">GENDER</label>
+            <select id="gender" name="gender" class="form-select" required>
+              <option selected disabled>select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+        <div class="col-md-4">
+          <label for="inputDOB" class="form-label">Date Of Birth</label>
+          <input type="date" required id="dob" name="dob" class="form-control" required />
+          
+        </div>
+        <div class="col-md-4">
+          <label for="inputAddress2" class="form-label">Address </label>
+          <input type="text" required class="form-control" id="address" name="address" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="col-md-4">
+          <label for="inputCity" class="form-label">City</label>
+          <input type="text" required class="form-control"  id="city" name="city" required>
+        </div>
+        
+        <div class="col-md-4">
+          <label for="inputZip" class="form-label">Contact</label>
+          <input type="text" required  class="form-control" id="contact" name="contact" required>
+        </div>
+        <div class="col-md-4">
+            <label for="inputField" class="form-label">FIELD</label>
+            <select id="fields" name="fields" class="form-select" required multiple >
+             <option selected disabled >your field</option>
+             <option value="Fashion">Fashion</option>
+             <option value="Fitness">Fitness</option>
+             <option value="Sports">Sports</option>
+             <option value="Coding">Coding</option>
+             <option value="Education">Education</option>
+             <option value="Singing">Singing</option>
+             <option value="Meditation">Meditation</option>
+             <option value="Rapper">Rapper</option>
+             <option value="dancer">dancer</option>   
+             <option value="Shooter">Shooter</option>
+             <option value="Actor">Actor</option>
+             <option value="Blogger">Blogger</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="inputCity" class="form-label">Instagram Account</label>
+            <input type="text"  class="form-control" id="insta" name="insta" required>
+          </div>
+          <div class="col-md-4">
+            <label for="inputCity" class="form-label">Facebook Account</label>
+            <input type="text"  class="form-control" id="fb" name="fb" required>
+          </div>
+          <div class="col-md-4">
+            <label for="inputCity" class="form-label">Youtube Channel</label>
+            <input type="text"  class="form-control" id="youtube" name="youtube" required>
+          </div>
+          <div class="col-md-8">
+            <label for="inputCity" class="form-label">Other Details</label>
+            <textarea rows="4"  cols="70" id="others" name="others" ></textarea>
+          </div>
+        <div class="col-12 text-center">
+          <br>
+          <button type="submit" class="btn btn-dark" formaction="/save-process">Save</button>
+          <button type="submit" class="btn btn-dark" formaction="/update-process">Update</button>
+        </div>
+      </form></div>
+      <br>
+      
+<div class="container-md  text-center">
+  <div class="row bg-dark ftr">
+    <div class="col-md-6 bg-dark">
+      <br>
+      <div class="row">
+      <div class="col-md-2">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </div>
+      <div class="col-md-4">
+      <p> BCE Bathinda</p></div></div>
+      <div class="row">
+        <div class="col-md-2">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="col-md-4">
+        <p>+915678898765</p></div></div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="col-md-4">
+          <p> <a href="#synsphere">syncsphere@mail.com</a></p></div></div>
+    </div>
+    <div class="col-md-6">
+      <br>
+      <h4>About The Company</h4> 
+      <p class="text-center">Our project facilitates the right connections, ensuring that each event reaches its full potential by bringing together the necessary elements seamlessly.</p>
+    </div>
+  </div>
+  <div class="row bg-dark ftr">
+    <div class="col-md-12">
+      <p>&copy; www.SyncSphere.com All rights reserved.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

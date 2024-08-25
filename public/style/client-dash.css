@@ -1,0 +1,9 @@
+body {
+    background-color: black;
+}
+.h2-my{
+    color:white;
+    text-transform: uppercase;
+    line-height: 52px;
+    margin-bottom: 0px;
+}

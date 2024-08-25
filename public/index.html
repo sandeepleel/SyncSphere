@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncSphere</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+
+    <link rel="stylesheet" href="./style/style.css">
+<!-- jquery link -->
+ 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+  function dologout(){
+    localStorage.removeItem("activeuser");
+    location.href="index.html";
+  }
+</script>
+
+<script>
+   
+  $(document).ready(function()
+   {    
+    
+    let active=localStorage.getItem("activeuser");
+   // alert(active);
+   // $("#dashwlcm").html("welcome:"+active);
+       $(document).ajaxStart(function(){
+           $("#bg").css("display","block");
+           $("#wait").css("display","none");
+       })
+       $(document).ajaxStop(function(){
+           $("#wait").css("display","none");
+           $("#bg").css("display","none");
+       })
+
+      
+
+
+   $("#sgnup").click(function(){
+       //alert("obj");
+       let obj={
+           type:"get",
+           url:"/signup-process",
+           data:{
+               txtEmail:$("#txtEmail").val(),
+               pwd:$("#pwd").val(),
+               combo:$("#combo").val()
+           }
+       }
+       $.ajax(obj).done(function(resp){
+          //alert(resp);
+          $("#msgSignup").html(resp);
+
+       }).fail(function(err)
+       {
+          // alert(err.statusText);
+           $("#msgSignup").html(err.statusText);
+       })
+       $("#txtEmail").blur(function(){
+        var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
+                let email=$(this).val();
+
+                if(pattern.test(email)==true)
+                    $("#mailSignup").html("Valid");
+                else
+                    $("#mailSignup").html("Invalid");
+      })
+      $("#pwd").blur(function(){
+              
+              var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
+            let pwd=$(this).val();
+
+            if(regularExpression.test(pwd)==true)
+               $("#pswdSignup").html("Valid");
+            else
+              $("#pswdSignup").html("INVALID");
+        });
+      
+   })
+
+   $("#login").click(function(){
+
+       let obj={
+           type:"get",
+           url:"/login-process",
+           data:{
+               txtEmaill:$("#txtEmaill").val(),
+               txtPwd:$("#txtPwd").val(),
+             
+           }
+       }
+       $.ajax(obj).done(function(resp){
+          $("#logspan").html(resp);
+          alert(resp);
+          if(resp==="Influencer")
+          {
+          location.href="infl-dash.html";
+          localStorage.setItem("activeuser",$("#txtEmaill").val());
+          }
+       else if(resp==="Client")
+       {
+       location.href="Client-dash.html";
+       localStorage.setItem("activeuser",$("#txtEmaill").val());
+       }
+   else 
+   alert(resp);
+   $("#logspan").html(resp);
+          
+
+       }).fail(function(err)
+       {
+           $("#logspan").html(err.statusText);
+       })
+       
+   })
+   $("#txtEmaill").blur(function(){
+        var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
+                let email=$(this).val();
+
+                if(pattern.test(email)==true)
+                    $("#mailspan").html("Valid");
+                else
+                    $("#mailspan").html("Invalid");
+      })
+      $("#txtPwd").blur(function(){
+              
+              var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/;
+            let pwd=$(this).val();
+
+            if(regularExpression.test(pwd)==true)
+               $("#pswdspan").html("Valid");
+            else
+              $("#pswdspan").html("INVALID");
+        });
+   })
+
+
+
+
+ </script>
+
+ <style>
+
+   #wait{
+       position: absolute;
+       width:100px;
+       height: 100px;
+       background-image: url(pics/loading.gif);
+       background-size: contain;
+       top:30%;
+       left:40%;
+       border: 1px black solid;
+       display: none;
+   }
+   #bg{
+       width: 100%;
+       height: 100%;
+       background-color: gainsboro;
+       display: none;
+       position: absolute;
+       opacity: .5;
+   }
+   #dashwlcm{
+    color:white;
+  
+   }
+
+ </style>
+
+</head>
+<body>
+  
+   <!-- <div id="bg" class=""></div>
+  <div id="wait" class=""></div> -->
+  <!-- <span id="dashwlcm" class="bg-dark">* </span>  -->
+  <div class="container-md" id="navbar-container">
+    
+  <nav class="navbar navbar-expand-lg mynav bg-dark border-bottom border-body sticky-top " data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./pics/chart_3166485.png" alt="Bootstrap" width="30" height="24">
+      </a>
+      <a class="navbar-brand" href="#syncsphere"><h2>SyncSphere.com</h2></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" href="#services">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" href="#team">Our Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" href="#clients">Our Clients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " aria-current="page" href="#reach">Reach Us</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <button class="btn btn-light " type="button" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" >Signup</button>
+      <button class="btn btn-light " type="button" style="margin-left:10px" 
+      data-bs-target="#exampleModallog"  data-bs-toggle="modal" >Login</button>
+      <!-- <button type="button" class="btn btn-light"style="margin-left:10px" value="Logout" id="btnLogout" onclick="dologout();">LogOut</button> -->
+        </form>
+      </div>
+    </div>
+  </nav></div>
+  <!-- carousels -->
+   <div class="container-md">
+  <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./pics/portrait-blogger.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="./pics/selfie.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="./pics/side-view.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div></div>
+  <!--next section-->
+  <div class="container md-4" id="services">
+    <h2 class="text-center h2-my bg-dark ">our services</h2>
+      <div class="card-group ">
+  <div class="card col-md-3  ">
+    <img src="./pics/coll.jpg" class="card-img-top" alt="..." >
+    <div class="card-body">
+      <h5 class="card-title text-dark text-center title-crd">Collaborations</h5>
+      <p class="card-text text-dark text-center">Join us in revolutionizing influencer collaborations! Our platform seamlessly connects influencers with exciting opportunities, ensuring that their availability matches the perfect tasks, creating a win-win for both brands and influencers.</p>
+    </div>
+  </div>
+  <div class="card col-md-3  ">
+    <img src="./pics/greet.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title text-dark text-center title-crd">Meet & Greet</h5>
+      <p class="card-text text-dark text-center">Experience unforgettable moments with our exclusive Meet and Greet events. Connect with your favorite influencers in a personalized setting, fostering genuine interactions and lasting memories."
+      </p>
+    </div>
+  </div>
+  
+  <div class="card col-md-3 " >
+    <img src="./pics/selfie.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title text-dark text-center title-crd">Find Influencers</h5>
+      <p class="card-text text-dark text-center">Discover the perfect influencers for your brand with our advanced search and filtering tools. Easily connect with influencers whose interests and audience align with your campaign goals, ensuring impactful and authentic collaborations.</p>
+    </div>
+  </div>
+  <div class="card col-md-3  " >
+    <img src="./pics/pr.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title text-dark text-center title-crd">Promotions</h5>
+      <p class="card-text text-dark text-center">Maximize your brand's reach with tailored promotional campaigns. Leverage the influence and creativity of top influencers to create engaging content that resonates with your target audience and drives impactful results.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+ <!--next section-->
+ <div class="container md-2" id="team">
+  <h2 class="text-center h2-my bg-dark ">OUR TEAM</h2>
+    <div class="card-group ">
+<div class="card col-md-6 ">
+  <img src="./pics/download.jpeg" class="card-img-top" alt="..." style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin: auto; padding-top: 20px;" >
+  <div class="card-body">
+    <h5 class="card-title text-dark text-center title-crd">Under The Guidance Of : Rajesh Kumar Bansal</h5>
+    <p class="card-text text-dark text-center">
+    He is an SCJP-Sun Certified Java Programmer with 20 years of experience in Training & Development. He is proficient in Java, C++, PHP, Python, AngularJS, Android, and the MERN Stack.
+  </p>
+  </div>
+</div>
+<div class="card col-md-6 ">
+  <img src="./pics/my.jpg" class="card-img-top" alt="..."style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover; margin: auto; padding-top: 20px;">
+  <div class="card-body">
+    <h5 class="card-title text-dark text-center title-crd">Developed By : Sandeep Kaur</h5>
+    <p class="card-text text-dark text-center">
+      I am an engineering student specializing in Computer Science. I have learned Node.js full stack web development and completed this project using technologies such as HTML, CSS, JavaScript, Node.js, Bootstrap, jQuery, AngularJS, AJAX, and Express.
+  </p>
+  </div>
+</div>
+</div></div>
+
+
+
+<!-- next section -->
+<div class="container " id="clients">
+  <h2 class="text-center h2-my bg-dark ">Our Clients</h2>
+  <div class="row">
+      <div class="col-md-3 col-sm-6 mb-3">
+          <img src="./pics/fcbk.png" class="img-fluid" alt="...">
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+          <img src="./pics/insta.png" class="img-fluid" alt="...">
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+          <img src="./pics/twittr.png" class="img-fluid" alt="...">
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+          <img src="./pics/linkdin.png" class="img-fluid" alt="...">
+      </div>
+  </div>
+</div>
+
+
+<!-- next section -->
+ <div class="container-md " id="reach">
+  <h2 class="text-center h2-my bg-dark">Reach Us</h2>
+  <div class="row iframe-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18906.129712753736!2d6.722624160288201!3d60.12672284414915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x463e997b1b6fc09d%3A0x6ee05405ec78a692!2sJ%C4%99zyk%20trola!5e0!3m2!1spl!2spl!4v1672239918130!5m2!1spl!2spl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+
+  
+ </div>
+
+ 
+<!-- next section  -->
+<div class="container-md  text-center">
+  <div class="row bg-dark ftr">
+    <div class="col-md-6 bg-dark">
+      <br>
+      <div class="row">
+      <div class="col-md-2">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </div>
+      <div class="col-md-4">
+      <p> BCE Bathinda</p></div></div>
+      <div class="row">
+        <div class="col-md-2">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="col-md-4">
+        <p>+915678898765</p></div></div>
+        <div class="row">
+          <div class="col-md-2">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="col-md-4">
+          <p> <a href="#synsphere">syncsphere@mail.com</a></p></div></div>
+    </div>
+    <div class="col-md-6">
+      <br>
+      <h4>About The Company</h4> 
+      <p class="text-center">Our project facilitates the right connections, ensuring that each event reaches its full potential by bringing together the necessary elements seamlessly.</p>
+    </div>
+  </div>
+  <div class="row bg-dark ftr">
+    <div class="col-md-12">
+      <p>&copy; www.SyncSphere.com All rights reserved.</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+ 
+
+
+
+
+
+
+
+    <!-- Modal Signup-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5 text-center lbl" id="exampleModalLabel">Signup here</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  
+                  <form>
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label lbl">Email address</label>
+                        <input type="email"  id="txtEmail" name="txtEmail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <span id="mailSignup" class="lbl">*</span>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label lbl">Password</label>
+                        <input type="password"id="pwd" name="pwd" class="form-control" id="exampleInputPassword1">
+                        <span id="pswdSignup" class="lbl">*</span>
+                      </div>
+                     <div class="mb-3">
+                      <select class="form-select lbl"  aria-label="Default select example" id="combo" name="combo">
+                          <option selected class="lbl"  >Select your category</option>
+                          <option value="Client" name="client" id="client" >Client</option>
+                          <option value="Influencer" name="infl" id="infl">Influencer</option>
+                        </select>
+                      <br>
+                      <span id="msgSignup" class="lbl">*</span>
+                        
+                          
+                       </div>
+                    </form>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="sgnup" >Signup</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+  <!-- Modal Login -->
+       
+  <div class="modal fade" id="exampleModallog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 lbl" id="exampleModalLabel">Login here</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <form>
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label lbl">Email address</label>
+                      <input type="email"  id="txtEmaill" name="txtEmaill" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      
+                      <span id="mailspan" class="lbl">*</span>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleInputPassword1" class="form-label lbl">Password</label>
+                      <input type="password" id="txtPwd" name="txtPwd" class="form-control" id="exampleInputPassword1">
+                      <span id="pswdspan" class="lbl">*</span>
+                    </div>
+                    <br>
+                    <span id="logspan" class="lbl">*</span>
+                  </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="login" >Login</button>
+                <br>
+               
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html> 
