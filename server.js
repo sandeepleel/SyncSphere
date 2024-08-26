@@ -172,7 +172,7 @@ app.post("/save-process",async function(req,resp)
     if(req.files!=null){
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
-        req.files.ppic.mv(path);
+      //  req.files.ppic.mv(path);
       await cloudinary.uploader.upload(path)
        .then(function(result){
         fileName=result.url;
@@ -220,8 +220,8 @@ app.post("/update-process", async function(req,resp){
         {
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
-        req.files.ppic.mv(path);
-        req.files.ppic.mv(path);
+        //req.files.ppic.mv(path);
+      //  req.files.ppic.mv(path);
         await cloudinary.uploader.upload(path)
          .then(function(result){
           fileName=result.url;
