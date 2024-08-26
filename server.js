@@ -203,8 +203,9 @@ app.post("/save-process",async function(req,resp)
 console.log(err);
 
         if(err==null) //no error
-       // resp.send("Data Saved In Profile");
-       resp.redirect("result.html");
+    { resp.send("Data Saved In Profile");
+       //resp.redirect("result.html");
+    }
 
 
         else
@@ -249,8 +250,8 @@ mysql.query("update iprofile set iname=?,gender=?,dob=?,address=?,city=?,contact
     if(err==null)
         {
             if(result.affectedRows>=1)
-               // resp.send("updated successfully");
-            resp.redirect("result.html");
+               resp.send("updated successfully");
+          //  resp.redirect("result.html");
             else
             resp.send("Invalid Email");
         }
@@ -299,8 +300,8 @@ app.post("/save-event-data",function(req,resp){
     let emailid=req.body.emailb;
     mysql.query("insert into events values(?,?,?,?,?,?,?)",[null,emailid,req.body.eventb,req.body.dateb,req.body.timeb,req.body.cityb,req.body.venueb],function(err,resultJsonAry){
         if(err==null) //no error
-       // resp.send("Data Saved");
-       resp.redirect("result.html");
+        resp.send("Data Saved");
+     //  resp.redirect("result.html");
 
 
         else
@@ -454,8 +455,8 @@ app.post("/csave-process",function(req,resp)
 console.log(err);
 
         if(err==null) //no error
-       // resp.send("Data Saved In CProfile");
-       resp.redirect("result.html");
+        resp.send("Data Saved In CProfile");
+      // resp.redirect("result.html");
 
 
         else
