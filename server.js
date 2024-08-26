@@ -2,6 +2,7 @@ var express=require("express");
 let app= express();
 let mysql2=require("mysql2");
 var fileuploader=require("express-fileupload");
+var cloudinary= require("cloudinary").v2;
 
 
 
@@ -16,16 +17,33 @@ const nodemailer = require("nodemailer");
 //    dateStrings:true
 // }
 
+//for clever cloud mysql 
 
-let config={
-    host:"b2cvazfuamebbjalwvy5-mysql.services.clever-cloud.com",
-    user:"updervrszus3k4rx",
-    password:"DQfRTVFsxtjY11y41502",
-    database:"b2cvazfuamebbjalwvy5",
-   dateStrings:true,
-   keepAliveInitialDelay:10000,
-   enableKeepAlive:true
-}
+// let config={
+//     host:"b2cvazfuamebbjalwvy5-mysql.services.clever-cloud.com",
+//     user:"updervrszus3k4rx",
+//     password:"DQfRTVFsxtjY11y41502",
+//     database:"b2cvazfuamebbjalwvy5",
+//    dateStrings:true,
+//    keepAliveInitialDelay:10000,
+//    enableKeepAlive:true
+// }
+
+
+//for aiven.io mysql 
+let config = "mysql://avnadmin:AVNS_nRLKyVl6_BLyHQimj8H@mysql-synsphere-sksyncsphere.b.aivencloud.com:26071/defaultdb"
+
+
+
+    // Configuration
+    cloudinary.config({ 
+        cloud_name: 'dzugpjrkr', 
+        api_key: '921816752577233', 
+        api_secret: '921816752577233' // Click 'View API Keys' above to copy your API secret
+    });
+    
+    
+
 app.use(express.static("public")); //because all files are in public folder
 app.use(fileuploader());
 
@@ -145,7 +163,7 @@ app.get("/login-process",function(req,resp)
 
 })
 //  profile page data save and update
-app.post("/save-process",function(req,resp)
+app.post("/save-process",async function(req,resp)
 {
 
     console.log(req.body);
@@ -155,10 +173,15 @@ app.post("/save-process",function(req,resp)
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
         req.files.ppic.mv(path);
+      await cloudinary.uploader.upload(path)
+       .then(function(result){
+        fileName=result.url;
+       })
     }
     else 
     fileName="nopic.jpg";
 
+    
     mysql.query("insert into iprofile values(?,?,?,?,?,?,?,?,?,?,?,?,?)",[
         req.body.txtEmail,
         req.body.iname,
@@ -180,14 +203,16 @@ app.post("/save-process",function(req,resp)
 console.log(err);
 
         if(err==null) //no error
-        resp.send("Data Saved In Profile");
+       // resp.send("Data Saved In Profile");
+       resp.redirect("result.html");
+
 
         else
        resp.send(err.message);
     })
 })
 
-app.post("/update-process",function(req,resp){
+app.post("/update-process", async function(req,resp){
     console.log(req.body);
     let fields = Array.isArray(req.body.fields) ? req.body.fields.join(",") : req.body.fields;
     let fileName="";
@@ -196,6 +221,11 @@ app.post("/update-process",function(req,resp){
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
         req.files.ppic.mv(path);
+        req.files.ppic.mv(path);
+        await cloudinary.uploader.upload(path)
+         .then(function(result){
+          fileName=result.url;
+         })
     }
     else {
         fileName=req.body.hdn;
@@ -269,7 +299,9 @@ app.post("/save-event-data",function(req,resp){
     let emailid=req.body.emailb;
     mysql.query("insert into events values(?,?,?,?,?,?,?)",[null,emailid,req.body.eventb,req.body.dateb,req.body.timeb,req.body.cityb,req.body.venueb],function(err,resultJsonAry){
         if(err==null) //no error
-        resp.send("Data Saved");
+       // resp.send("Data Saved");
+       resp.redirect("result.html");
+
 
         else
         resp.send(err.message);
@@ -422,7 +454,9 @@ app.post("/csave-process",function(req,resp)
 console.log(err);
 
         if(err==null) //no error
-        resp.send("Data Saved In CProfile");
+       // resp.send("Data Saved In CProfile");
+       resp.redirect("result.html");
+
 
         else
        resp.send(err.message);
@@ -621,7 +655,7 @@ app.get("/cpass-change-process", function(req, resp) {
                 from: "sk1252844@gmail.com",
                 to: clemail,
                 subject: "Password Changed Successfully!",
-                text: "Hello, this is a password change email!"
+                text: "Hello, this is a password change email! congratulations for changing your password"
             };
 
             auth.sendMail(receiver, (error, emailResponse) => {

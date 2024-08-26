@@ -55,7 +55,7 @@ $(document).ready(function(){
             $("#txtEmail").val(jsonAry[0].emailid);
             $("#iname").val(jsonAry[0].iname);
             $("#gender").val(jsonAry[0].gender);
-            $("#dob").val(jsonAry[0].dob);
+            $("#dob").val(jsonAry[0].dob.split("T")[0]);
             $("#address").val(jsonAry[0].address);
             $("#city").val(jsonAry[0].city);
             $("#contact").val(jsonAry[0].contact);
@@ -73,8 +73,8 @@ $("#fields").val(selectedValues).trigger('change'); // .trigger('change') is use
             $("#fb").val(jsonAry[0].fb);
             $("#youtube").val(jsonAry[0].youtube);
             $("#others").val(jsonAry[0].others);
-            $("#imgPrev").prop("src","uploads/"+jsonAry[0].picpath);
-            
+          //  $("#imgPrev").prop("src","uploads/"+jsonAry[0].picpath);
+            $("#imgPrev").prop("src",+jsonAry[0].picpath);
             $("#hdn").val(jsonAry[0].picpath);
 
 
