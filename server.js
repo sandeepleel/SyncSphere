@@ -2,7 +2,7 @@ var express=require("express");
 let app= express();
 let mysql2=require("mysql2");
 var fileuploader=require("express-fileupload");
-var cloudinary= require("cloudinary").v2;
+//var cloudinary= require('cloudinary').v2;
 
 
 
@@ -31,16 +31,16 @@ const nodemailer = require("nodemailer");
 
 
 //for aiven.io mysql 
-let config = "mysql://avnadmin:AVNS_nRLKyVl6_BLyHQimj8H@mysql-synsphere-sksyncsphere.b.aivencloud.com:26071/defaultdb"
+let config = "mysql://avnadmin:AVNS_nRLKyVl6_BLyHQimj8H@mysql-synsphere-sksyncsphere.b.aivencloud.com:26071/defaultdb";
 
 
 
     // Configuration
-    cloudinary.config({ 
-        cloud_name: 'dzugpjrkr', 
-        api_key: '921816752577233', 
-        api_secret: '921816752577233' // Click 'View API Keys' above to copy your API secret
-    });
+    // cloudinary.config({ 
+    //     cloud_name: 'dzugpjrkr', 
+    //     api_key: '921816752577233', 
+    //     api_secret: '921816752577233' // Click 'View API Keys' above to copy your API secret
+    // });
     
     
 
@@ -172,11 +172,11 @@ app.post("/save-process",async function(req,resp)
     if(req.files!=null){
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
-      //  req.files.ppic.mv(path);
-      await cloudinary.uploader.upload(path)
-       .then(function(result){
-        fileName=result.url;
-       })
+       req.files.ppic.mv(path);
+    //   await cloudinary.uploader.upload(path)
+    //    .then(function(result){
+    //     fileName=result.url;
+    //    })
     }
     else 
     fileName="nopic.jpg";
@@ -221,12 +221,12 @@ app.post("/update-process", async function(req,resp){
         {
         fileName=req.files.ppic.name;
         let path=__dirname+"/public/uploads/"+fileName;
-        //req.files.ppic.mv(path);
+        req.files.ppic.mv(path);
       //  req.files.ppic.mv(path);
-        await cloudinary.uploader.upload(path)
-         .then(function(result){
-          fileName=result.url;
-         })
+        // await cloudinary.uploader.upload(path)
+        //  .then(function(result){
+        //   fileName=result.url;
+        //  })
     }
     else {
         fileName=req.body.hdn;
@@ -250,8 +250,8 @@ mysql.query("update iprofile set iname=?,gender=?,dob=?,address=?,city=?,contact
     if(err==null)
         {
             if(result.affectedRows>=1)
-               resp.send("updated successfully");
-          //  resp.redirect("result.html");
+              // resp.send("updated successfully");
+           resp.redirect("result.html");
             else
             resp.send("Invalid Email");
         }
@@ -455,8 +455,8 @@ app.post("/csave-process",function(req,resp)
 console.log(err);
 
         if(err==null) //no error
-        resp.send("Data Saved In CProfile");
-      // resp.redirect("result.html");
+        //resp.send("Data Saved In CProfile");
+       resp.redirect("result.html");
 
 
         else
